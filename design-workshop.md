@@ -11,6 +11,8 @@ Feedback Link: https://github.com/holochain-community-resources/design-workshop
 ## Overview 
 Duration: 2
 
+> This workshop is a work in progress. [Contributions](https://github.com/holochain-community-resources/design-workshop/issues) are greatly appreciated!
+
 ### Goal
 
 **Have an idea for a holochain app?**
@@ -64,5 +66,7 @@ TBD
 <!-- ------------------------ -->
 ## Design entries and links
 Duration: 25
+
+Build an entry relationship diagram for each one of your zomes: https://hackmd.io/XNPC4NUKRd2zja9Itja-fg
 
 TBD
