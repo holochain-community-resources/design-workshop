@@ -8,6 +8,8 @@ All steps in the workshop are defined and written in `design-workshop.md`. Edit 
 
 ## Publishing 
 
+This assumes you have [`claat`](https://github.com/googlecodelabs/tools/tree/master/claat) installed.
+
 The workshop is hosted on Github pages. To publish a new version of the workshop, run this:
 
 ```bash
