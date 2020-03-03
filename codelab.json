@@ -3,23 +3,23 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2020-03-03T12:52:41+01:00",
-  "id": "architecture-workshop",
+  "updated": "2020-03-03T13:25:39+01:00",
+  "id": "design-workshop",
   "duration": 8,
-  "title": "How to Write a Codelab",
-  "authors": "Zarin",
-  "summary": "How to Write a Codelab",
-  "source": "architecture-workshop.md",
+  "title": "How to design a Holochain Applicaion",
+  "authors": "Guillem Córdoba",
+  "summary": "How to design a Holochain Application",
+  "source": "design-workshop.md",
   "theme": "",
   "status": [
     "published"
   ],
   "category": [
-    "sample"
+    "holochain design"
   ],
   "tags": [
-    "medium"
+    "holochain design architecture workshop"
   ],
-  "feedback": "https://zarin.io",
-  "url": "architecture-workshop"
+  "feedback": "https://github.com/holochain-community-resources/design-workshop",
+  "url": "design-workshop"
 }
