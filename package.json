@@ -1,22 +1,22 @@
 {
-  "name": "architecture-workshop",
+  "name": "holochain-design-workshop",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "claat export architecture-workshop.md",
-    "publish": "gh-pages --dist ./architecture-workshop"
+    "build": "claat export design-workshop.md",
+    "publish": "gh-pages --dist ./design-workshop"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/holochain-community-resources/architecture-workshop.git"
+    "url": "git+https://github.com/holochain-community-resources/design-workshop.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/holochain-community-resources/architecture-workshop/issues"
+    "url": "https://github.com/holochain-community-resources/design-workshop/issues"
   },
-  "homepage": "https://github.com/holochain-community-resources/architecture-workshop#readme",
+  "homepage": "https://github.com/holochain-community-resources/design-workshop#readme",
   "devDependencies": {
     "gh-pages": "^2.2.0"
   }
