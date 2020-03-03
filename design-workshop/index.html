@@ -53,63 +53,122 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Architect DHTs" duration="30">
-        <ul>
-<li><strong>Input</strong>: user stories and functional requirements.</li>
-<li><strong>Output</strong>: architectural high-level DHTs components with dependencies and functions. Together they will form your system.</li>
+      <google-codelab-step label="DHT Architecture" duration="30">
+        <h2 is-upgraded>Inputs</h2>
+<ul>
+<li>User stories</li>
+<li>Functional requirements.</li>
 </ul>
+<h2 is-upgraded>Output:</h2>
+<ul>
+<li>Architectural high-level DHTs components with dependencies and functions.</li>
+</ul>
+<h2 is-upgraded>Concepts</h2>
+<p>Holochain&#39;s crucial aspect regarding DHT architecture is the fact that <strong>every happ creates its own network or DHT</strong>. Those networks can be public, private, permissioned, or impose certain conditions for an agent to be able to enter.</p>
+<p>This makes architecturing your <strong>network topology</strong> a big first step when designing a happ.</p>
+<p>Any holochain application system can be described as a set of high-level DHT components. For purposes of this workshop, <strong>you can think about DHTs as a shared space</strong>, in which all agents can see every piece of data published in it.</p>
+<h2 is-upgraded>Questions to ask</h2>
+<ul>
+<li>Which agents and roles exist in your happ?</li>
+<li>What information will each of these agents publish into the system?</li>
+<li>Which other agents should be able to access that information?</li>
+</ul>
+<h2 is-upgraded>Rules of thumb</h2>
+<ul>
+<li>Define a new DHT shared space every time you have a group of agents that should be able to read some specific information, but not everyone should be able to see it.</li>
+<li>Define a new DHT every time you need to propagate information from one agent to another, but they are not on any shared space.</li>
+<li>Define a new DHT if you need special nodes to store a subset of the information (e.g. indexing nodes, file storage, etc.).</li>
+</ul>
+<p>These rules don&#39;t cover all the cases, but can guide you towards the appropriate solution.</p>
+<h2 is-upgraded>Example</h2>
 <p>TBD</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Define membranes" duration="15">
-        <ul>
-<li><strong>Input</strong>: DHT components of your system.</li>
-<li><strong>Output</strong>: membranes definitions, a.k.a. validation rules for the agents in each shared space, or process by which an agent enters the shared space.</li>
+      <google-codelab-step label="Define Membranes" duration="15">
+        <h2 is-upgraded>Input</h2>
+<ul>
+<li>DHT components of your system.</li>
 </ul>
+<h2 is-upgraded>Output</h2>
+<ul>
+<li>Membranes definitions, a.k.a. validation rules for the agents in each shared space</li>
+<li>Processes by which an agent enters the shared space.</li>
+</ul>
+<h2 is-upgraded>Concepts</h2>
+<p>TBD</p>
+<h2 is-upgraded>Questions</h2>
+<p>TBD</p>
+<h2 is-upgraded>Example</h2>
 <p>TBD</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Design modular zomes" duration="15">
-        <ul>
-<li><strong>Input</strong>: DHT components of your system.</li>
-<li><strong>Output</strong>: breakdown of each high-level component into modular and re-usable zomes.</li>
+      <google-codelab-step label="Design Modular Zomes" duration="15">
+        <h2 is-upgraded>Input</h2>
+<ul>
+<li>DHT components of your system.</li>
+<li>Processes by which an agent enters each shared space.</li>
 </ul>
+<h2 is-upgraded>Output</h2>
+<ul>
+<li>Breakdown of each high-level component into modular and re-usable zomes.</li>
+</ul>
+<h2 is-upgraded>Concepts</h2>
+<p>TBD</p>
+<h2 is-upgraded>Questions</h2>
+<p>TBD</p>
+<h2 is-upgraded>Example</h2>
 <p>TBD</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Design entries and links" duration="25">
-        <ul>
-<li><strong>Input</strong>: breakdown of modular zomes.</li>
-<li><strong>Output</strong>: entries and links design for all your zomes, with entry relationship diagrams specifications.</li>
+        <h2 is-upgraded>Input</h2>
+<ul>
+<li>Breakdown of modular zomes.</li>
+</ul>
+<h2 is-upgraded>Output</h2>
+<ul>
+<li>Entries and links design for all your zomes</li>
+<li>Entry relationship diagrams specifications.</li>
 </ul>
 <p>Build an entry relationship diagram for each one of your zomes: https://hackmd.io/XNPC4NUKRd2zja9Itja-fg</p>
+<h2 is-upgraded>Concepts</h2>
+<p>TBD</p>
+<h2 is-upgraded>Questions</h2>
+<p>TBD</p>
+<h2 is-upgraded>Example</h2>
 <p>TBD</p>
 
 
       </google-codelab-step>
     
       <google-codelab-step label="Complex information flows" duration="20">
-        <ul>
-<li><strong>Inputs</strong>:<ul>
+        <h2 is-upgraded>Inputs</h2>
+<ul>
 <li>Architecture DHT components and their membranes.</li>
 <li>Necessary non-trivial information flows</li>
 </ul>
-</li>
-<li><strong>Output</strong>: sequence diagrams for all components involved in the system for each complex information flow.</li>
+<h2 is-upgraded>Output</h2>
+<ul>
+<li>Sequence diagrams for all components involved in the system for each complex information flow.</li>
 </ul>
-<p>By &#34;complex information flow&#34; we mean any piece of information or protocol that goes beyond a simple &#34;get_entry&#34; or &#34;get_links&#34;, and involve multiple parties or components.</p>
+<p>By <em>complex information flow</em> we mean any piece of information or protocol that goes beyond a simple <code>get_entry</code> or <code>get_links</code>, and involve multiple parties or components.</p>
 <p>Examples include:</p>
 <ul>
 <li>Courtersigning a transaction</li>
 <li>Retrieving private data from another DHT shared space</li>
 <li>Using capabilities to execute a function of another agent</li>
 </ul>
+<h2 is-upgraded>Concepts</h2>
+<p>TBD</p>
+<h2 is-upgraded>Questions</h2>
+<p>TBD</p>
+<h2 is-upgraded>Example</h2>
 <p>TBD</p>
 
 
