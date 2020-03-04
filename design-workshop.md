@@ -6,7 +6,7 @@ status: Published
 authors: Guillem Córdoba
 Feedback Link: https://github.com/holochain-community-resources/design-workshop
 
-# How to design a Holochain Applicaion
+# How to design a Holochain Application
 <!-- ------------------------ -->
 ## Overview 
 Duration: 2
