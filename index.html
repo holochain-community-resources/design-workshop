@@ -57,11 +57,11 @@
         <h2 is-upgraded>Inputs</h2>
 <ul>
 <li>User stories</li>
-<li>Functional requirements.</li>
+<li>Functional requirements</li>
 </ul>
 <h2 is-upgraded>Output:</h2>
 <ul>
-<li>Architectural high-level DHTs components with dependencies and functions.</li>
+<li>Architectural high-level DHTs components with dependencies and functions</li>
 </ul>
 <h2 is-upgraded>Concepts</h2>
 <p>Holochain&#39;s crucial aspect regarding DHT architecture is the fact that <strong>every happ creates its own network or DHT</strong>. Those networks can be public, private, permissioned, or impose certain conditions for an agent to be able to enter.</p>
@@ -89,12 +89,12 @@
       <google-codelab-step label="Define Membranes" duration="15">
         <h2 is-upgraded>Input</h2>
 <ul>
-<li>DHT components of your system.</li>
+<li>DHT components of your system</li>
 </ul>
 <h2 is-upgraded>Output</h2>
 <ul>
 <li>Membranes definitions, a.k.a. validation rules for the agents in each shared space</li>
-<li>Processes by which an agent enters the shared space.</li>
+<li>Processes by which an agent enters the shared space</li>
 </ul>
 <h2 is-upgraded>Concepts</h2>
 <p>TBD</p>
@@ -106,27 +106,53 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Design Modular Zomes" duration="15">
+      <google-codelab-step label="Design Modular Zomes" duration="25">
         <h2 is-upgraded>Input</h2>
 <ul>
-<li>DHT components of your system.</li>
-<li>Processes by which an agent enters each shared space.</li>
+<li>DHT components of your system</li>
+<li>User stories</li>
+<li>Processes by which an agent enters each shared space</li>
 </ul>
 <h2 is-upgraded>Output</h2>
 <ul>
-<li>Breakdown of each high-level component into modular and re-usable zomes.</li>
+<li>Breakdown of each high-level component into modular and re-usable zomes</li>
 </ul>
 <h2 is-upgraded>Concepts</h2>
-<p>TBD</p>
+<p>Holochain applications are composed of different modules or <em>zomes</em>. Each zome is an aggregation of:</p>
+<ul>
+<li><strong>Entry types</strong> definitions</li>
+<li><strong>Link types</strong> definitions between those entries</li>
+<li><strong>Validation rules</strong> for those entries and links</li>
+<li><strong>Function calls</strong> exposed to the exterior</li>
+<li><strong>Validation rules</strong> for any agent trying to access the network</li>
+<li><strong>Lifecycle callbacks</strong> like <code>init</code>, <code>receive_direct_message</code>...</li>
+</ul>
+<p>Zomes don&#39;t actually specify which entries they are going to be storing, but <strong>defining</strong> which type of entries are supported. In a traditional database system, this would be akin to a database schema specification.</p>
+<p>Different technical aspects apply to the relationship between multiple zomes:</p>
+<ul>
+<li>All zomes in the same DNA <strong>share both source chain and DHT</strong>. Entries commited with one zome can be accessed by another zome.</li>
+<li>Agent validation is run in all zomes: each agent is only valid if <strong>all zomes</strong> successfully validate the agent.</li>
+<li>You can have the <strong>same zome in different DNAs</strong>: this allows to bridge calls between DNAs which are defined in the same zome.</li>
+<li>Each zome <strong>can require different properties</strong> set in the happ&#39;s properties. For example, a &#34;members&#34; zome may require a <code>valid_members</code> property while a &#34;mutual-credit&#34; zome may require a <code>credit_limit</code> property. All properties should be provided for all zomes to work.</li>
+<li><strong>Zomes can depend on other zomes</strong>. Zome functionality can be broken down into zomes A and B, where B only will work if A is present as well. This allows A to be used by other DNAs without assuming anything else, but all of B&#39;s code can assume that A&#39;s entries and validation rules are present. (Note: for now, this <strong>has to be put in the documentation and warned to developers</strong>, since there is no explicit mechanism to express this).</li>
+</ul>
+<p>However, by far the most important concept in breaking down functionalities into differents zomes is the <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle" target="_blank"><strong>Single Responsibility Principle</strong></a>, which states that a single module should only be responsible for one autonomous part of the functionality. Here, knowledge and experience from other kinds of systems are very useful and needed.</p>
 <h2 is-upgraded>Questions</h2>
-<p>TBD</p>
+<ul>
+<li>For any subset of entries and/or links, <strong>do they make sense without one another</strong>?</li>
+</ul>
+<p>Yes: try to split them into different zomes.\<br>No: put them in the same zome.</p>
+<ul>
+<li>For any subset of entries and/or links, <strong>would they be reusable by themselves in another DNA?</strong></li>
+</ul>
+<p>If so, try to split them into their own zome. If other entries depend on these ones, you can make a second zome depend on this first one.</p>
 <h2 is-upgraded>Example</h2>
 <p>TBD</p>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Design entries and links" duration="25">
+      <google-codelab-step label="Design entries and links" duration="35">
         <h2 is-upgraded>Input</h2>
 <ul>
 <li>Breakdown of modular zomes.</li>
@@ -136,9 +162,41 @@
 <li>Entries and links design for all your zomes</li>
 <li>Entry relationship diagrams specifications.</li>
 </ul>
-<p>Build an entry relationship diagram for each one of your zomes: https://hackmd.io/XNPC4NUKRd2zja9Itja-fg</p>
+<h2 is-upgraded>Steps</h2>
+<ol type="1">
+<li>Watch this intro to entries and links design: https://www.youtube.com/watch?v=JytLB6hD-GQ&amp;t=667s</li>
+<li>Build an entry relationship diagram for each one of your zomes: https://hackmd.io/XNPC4NUKRd2zja9Itja-fg</li>
+</ol>
 <h2 is-upgraded>Concepts</h2>
-<p>TBD</p>
+<p>In holochain, <strong>all that an agent can do to modify state is create entries</strong>. It does so by appending the new entry and its header to their own source chain, and advancing the top of that source chain to the latest header. BUT: that entry might be of <a href="https://docs.rs/hdk/0.0.44-alpha3/hdk/prelude/enum.Entry.html" target="_blank">different types</a>: <code>App</code>, <code>LinkAdd</code>, <code>CapTokenGrant</code>...</p>
+<p>After that, it proceeds to calculate which <strong>DHT Operation Transforms</strong> should every one of those entries produce, and <strong>where should those transforms happen in the DHT</strong>.</p>
+<p>For example: creating a normal entry produces at least 3 DHT Operations: it publishes the entry in the entry&#39;s hash location, it publishes the entry&#39;s header in the header&#39;s hash location, and publishes an internal system link from at the agent&#39;s address to point to the new header&#39;s hash.</p>
+<p>This gives us two very different sets of data storage and retrieval systems:</p>
+<h3 is-upgraded>Source chain</h3>
+<p>Local state relative to every agent. Here <strong>local order of events is automatically guaranteed</strong> by the chain of headers and can be scanned in validation rules, when countersigning, etc.</p>
+<h3 is-upgraded>DHT</h3>
+<p><strong>Global shared state</strong>, which arrives to its final state through <strong>eventual consistency</strong>. Only from the built-in mechanisms, <strong>we cannot assume that we are seeing all the actions from all the agents in the network</strong> (there are also extreme edge cases as well, like network partitions).</p>
+<p>BUT, we <strong>can be sure that what we already see happened and is valid</strong>. All entries accessible from the DHT are already validated by the neighborhood they live in, so we can assume that they are valid. Also, we can be sure that the <strong>content of an entry won&#39;t change</strong>, although <strong>its metadata CAN change</strong> (whether it is updated or deleted, or which links it has attached).</p>
+<p>Lastly, holochain&#39;s DHT works like a big <a href="https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type" target="_blank">CRDT</a>. That means that global order of events cannot influence the final state of the data. This means that, for example, if Alice creates entry A, then Bob removes entry A, and then Alice creates again entry A, <strong>entry A will stay removed forever</strong>. Holochain internals mechanisms don&#39;t have any way of discerning in which global order those events happened (<em>does global time exist?</em>) so it will solve the dispute by giving the remove entry order priority over all the other ones.</p>
+<h3 is-upgraded>Validation rules</h3>
+<p>All these mechanisms and primitives influences our validation rule design, and we have to keep them in mind at all times not to write bad validation rules. <strong>Validation rules must be deterministic</strong>: for a given entry or link, all validations any agent might run at any point in time <strong>must</strong> result in the same execution.</p>
+<p>This gives us some constraints when designing validation rules:</p>
+<ul>
+<li><strong>Can&#39;t change throughout time</strong>: as time passes, our rules should not change result.</li>
+</ul>
+<p>Example: when validating if an agent has some role assigned, we must check if that agent <strong>had that role assigned when they committed the entry</strong>, not at current point in time.</p>
+<ul>
+<li><strong>Can&#39;t depend on changing metadata</strong>: this will give different results for different perspectives and fail to be consistent.</li>
+</ul>
+<p>Example: I write a validation rule that checks that the number of links from a given entry is less than 2. This will be true at some point in time and for some perspective, but as links are added to the entry, the validation rule will change its result.</p>
+<ul>
+<li><strong>Must validate all roles implicated in an entry at the same time</strong>, no matter the &#34;perspective&#34; that we are validating.</li>
+</ul>
+<p>Example: if we are validating a countersigned transaction, in which both Alice and Bob sign and commit the transaction separately. No matter &#34;whose commit&#34; we are validating, the validation should give the same result from Alice&#39;s point of view as well as Bob&#39;s point on view.</p>
+<ul>
+<li>BUT, <strong>they can depend on another entry being present in the DHT</strong>, by an internal mechanism that will retry getting an entry from the DHT if the device is disconnected or the entry has not been published yet.</li>
+</ul>
+<p>Example: if I&#39;m validating a transaction in a mutual credit application, I can make that transaction be valid only if both parties have the appropriate headers published on the DHT. If the validation rules fail to find the headers at some execution, they will pause and try later.</p>
 <h2 is-upgraded>Questions</h2>
 <p>TBD</p>
 <h2 is-upgraded>Example</h2>
@@ -169,6 +227,9 @@
 <h2 is-upgraded>Questions</h2>
 <p>TBD</p>
 <h2 is-upgraded>Example</h2>
+<ul>
+<li><a href="https://github.com/holochain-open-dev/mutual-credit" target="_blank">Mutual-credit</a></li>
+</ul>
 <p>TBD</p>
 
 
