@@ -164,6 +164,7 @@
 <ul>
 <li>Entries and links design for all your zomes</li>
 <li>Entry relationship diagrams specifications.</li>
+<li>Validation rules for all your entries and links</li>
 </ul>
 <h2 is-upgraded>Steps</h2>
 <ol type="1">
@@ -180,9 +181,9 @@
 <h3 is-upgraded>DHT</h3>
 <p><strong>Global shared state</strong>, which arrives to its final state through <strong>eventual consistency</strong>. Only from the built-in mechanisms, <strong>we cannot assume that we are seeing all the actions from all the agents in the network</strong> (there are also extreme edge cases as well, like network partitions).</p>
 <p>BUT, we <strong>can be sure that what we already see happened and is valid</strong>. All entries accessible from the DHT are already validated by the neighborhood they live in, so we can assume that they are valid. Also, we can be sure that the <strong>content of an entry won&#39;t change</strong>, although <strong>its metadata CAN change</strong> (whether it is updated or deleted, or which links it has attached).</p>
-<p>Lastly, holochain&#39;s DHT works like a big <a href="https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type" target="_blank">CRDT</a>. That means that global order of events cannot influence the final state of the data. This means that, for example, if Alice creates entry A, then Bob removes entry A, and then Alice creates again entry A, <strong>entry A will stay removed forever</strong>. Holochain internals mechanisms don&#39;t have any way of discerning in which global order those events happened (<em>does global time exist?</em>) so it will solve the dispute by giving the remove entry order priority over all the other ones.</p>
+<p>Lastly, holochain&#39;s DHT works like a big <a href="https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type" target="_blank">CRDT</a>. That means that <strong>global order of events cannot influence the final state of the data</strong>. This means that, for example, if Alice creates entry A, then Bob removes entry A, and then Alice creates again entry A, <strong>entry A will stay removed forever</strong>. Holochain internals mechanisms don&#39;t have any way of discerning in which global order those events happened (<em>does global time exist?</em>) so it will solve the dispute by giving the remove entry order priority over all the other ones.</p>
 <h3 is-upgraded>Validation rules</h3>
-<p>All these mechanisms and primitives influences our validation rule design, and we have to keep them in mind at all times not to write bad validation rules. <strong>Validation rules must be deterministic</strong>: for a given entry or link, all validations any agent might run at any point in time <strong>must</strong> result in the same execution.</p>
+<p>All these mechanisms and primitives influences our validation rule design, and we have to keep them in mind at all times not to write bad validation rules. <strong>Validation rules must be deterministic</strong>: for a given entry or link, all validations any agent might run at <strong>ANY POINT IN TIME MUST</strong> result in the same execution.</p>
 <p>This gives us some constraints when designing validation rules:</p>
 <ul>
 <li><strong>Can&#39;t change throughout time</strong>: as time passes, our rules should not change result.</li>
@@ -208,7 +209,7 @@
 
       </google-codelab-step>
     
-      <google-codelab-step label="Complex Information Flows" duration="20">
+      <google-codelab-step label="Cross-functional Information Flows" duration="20">
         <h2 is-upgraded>Inputs</h2>
 <ul>
 <li>Architecture DHT components and their membranes.</li>
