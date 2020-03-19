@@ -157,6 +157,7 @@ Duration: 35
 ### Output
 * Entries and links design for all your zomes
 * Entry relationship diagrams specifications.
+* Validation rules for all your entries and links
 
 ### Steps
 
@@ -184,11 +185,11 @@ Local state relative to every agent. Here **local order of events is automatical
 
 BUT, we **can be sure that what we already see happened and is valid**. All entries accessible from the DHT are already validated by the neighborhood they live in, so we can assume that they are valid. Also, we can be sure that the **content of an entry won't change**, although **its metadata CAN change** (whether it is updated or deleted, or which links it has attached).
 
-Lastly, holochain's DHT works like a big [CRDT](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type). That means that global order of events cannot influence the final state of the data. This means that, for example, if Alice creates entry A, then Bob removes entry A, and then Alice creates again entry A, **entry A will stay removed forever**. Holochain internals mechanisms don't have any way of discerning in which global order those events happened (*does global time exist?*) so it will solve the dispute by giving the remove entry order priority over all the other ones. 
+Lastly, holochain's DHT works like a big [CRDT](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type). That means that **global order of events cannot influence the final state of the data**. This means that, for example, if Alice creates entry A, then Bob removes entry A, and then Alice creates again entry A, **entry A will stay removed forever**. Holochain internals mechanisms don't have any way of discerning in which global order those events happened (*does global time exist?*) so it will solve the dispute by giving the remove entry order priority over all the other ones. 
 
 #### Validation rules
 
-All these mechanisms and primitives influences our validation rule design, and we have to keep them in mind at all times not to write bad validation rules. **Validation rules must be deterministic**: for a given entry or link, all validations any agent might run at any point in time **must** result in the same execution.
+All these mechanisms and primitives influences our validation rule design, and we have to keep them in mind at all times not to write bad validation rules. **Validation rules must be deterministic**: for a given entry or link, all validations any agent might run at **ANY POINT IN TIME MUST** result in the same execution.
 
 This gives us some constraints when designing validation rules:
 
@@ -217,7 +218,7 @@ TBD
 TBD
 
 <!-- ------------------------ -->
-## Complex Information Flows
+## Cross-functional Information Flows
 Duration: 20
 
 ### Inputs
